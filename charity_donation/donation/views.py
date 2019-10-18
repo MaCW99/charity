@@ -10,10 +10,7 @@ from donation.models import Donation, Institution
 class LandingPage(View):
     def get(self, request):
         bags = Donation.objects.aggregate(Sum('quantity'))
-        # count_inst = Donation.objects.all().annotate(Count("institution", distinct=True))
-
         count_inst = Donation.objects.values('institution').distinct().count()
-
         help_fundations = Institution.objects.filter(type=1)
         help_ngo = Institution.objects.filter(type=2)
         help_local = Institution.objects.filter(type=3)
