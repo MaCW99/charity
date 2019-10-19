@@ -9,11 +9,7 @@ class Category(models.Model):
     name = models.CharField(max_length=120)
 
 
-TYPES = (
-    (1, 'fundacja'),
-    (2, 'organizacja pozarządowa'),
-    (3, 'zbiórka lokalna')
-)
+TYPES = ((1, "fundacja"), (2, "organizacja pozarządowa"), (3, "zbiórka lokalna"))
 
 
 class Institution(models.Model):

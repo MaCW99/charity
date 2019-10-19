@@ -17,13 +17,19 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path
 
-from donation.views import LandingPage, LoginPage, RegisterPage, AddDonationPage
+from donation.views import (
+    LandingPage,
+    LoginPage,
+    RegisterPage,
+    AddDonationPage,
+    LogoutView,
+)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    url(r'^$', LandingPage.as_view(), name='landing_page'),
-    url(r'^login/$', LoginPage.as_view(), name='login'),
-    url(r'^register/$', RegisterPage.as_view(), name='register'),
-    url(r'^add_donation/$', AddDonationPage.as_view(), name='add_donation'),
-
+    path("admin/", admin.site.urls),
+    url(r"^$", LandingPage.as_view(), name="landing_page"),
+    url(r"^login/$", LoginPage.as_view(), name="login"),
+    url(r"^register/$", RegisterPage.as_view(), name="register"),
+    url(r"^add_donation/$", AddDonationPage.as_view(), name="add_donation"),
+    url(r"^logout/$", LogoutView.as_view(), name="logout"),
 ]
