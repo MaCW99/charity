@@ -9,43 +9,82 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-    ]
+    dependencies = [migrations.swappable_dependency(settings.AUTH_USER_MODEL)]
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=120)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=120)),
             ],
         ),
         migrations.CreateModel(
-            name='Institution',
+            name="Institution",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=250)),
-                ('description', models.TextField()),
-                ('type', models.IntegerField(choices=[(1, 'fundacja'), (2, 'organizacja pozarządowa'), (3, 'zbiórka lokalna')], default=1)),
-                ('categories', models.ManyToManyField(to='donation.Category')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=250)),
+                ("description", models.TextField()),
+                (
+                    "type",
+                    models.IntegerField(
+                        choices=[
+                            (1, "fundacja"),
+                            (2, "organizacja pozarządowa"),
+                            (3, "zbiórka lokalna"),
+                        ],
+                        default=1,
+                    ),
+                ),
+                ("categories", models.ManyToManyField(to="donation.Category")),
             ],
         ),
         migrations.CreateModel(
-            name='Donation',
+            name="Donation",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('quantity', models.IntegerField()),
-                ('address', models.CharField(max_length=120)),
-                ('phone_number', models.CharField(max_length=20)),
-                ('city', models.CharField(max_length=50)),
-                ('zip_code', models.CharField(max_length=6)),
-                ('pick_up_date', models.DateField()),
-                ('pick_up_time', models.TimeField(null=True)),
-                ('pick_up_comment', models.TextField()),
-                ('categories', models.ManyToManyField(to='donation.Category')),
-                ('institution', models.ManyToManyField(to='donation.Institution')),
-                ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("quantity", models.IntegerField()),
+                ("address", models.CharField(max_length=120)),
+                ("phone_number", models.CharField(max_length=20)),
+                ("city", models.CharField(max_length=50)),
+                ("zip_code", models.CharField(max_length=6)),
+                ("pick_up_date", models.DateField()),
+                ("pick_up_time", models.TimeField(null=True)),
+                ("pick_up_comment", models.TextField()),
+                ("categories", models.ManyToManyField(to="donation.Category")),
+                ("institution", models.ManyToManyField(to="donation.Institution")),
+                (
+                    "user",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]
