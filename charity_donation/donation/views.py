@@ -1,10 +1,14 @@
+from django.contrib.auth.models import User
 from django.db.models import Sum, Count
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
 from django.views import View
 
 from donation.models import Donation, Institution
+
+from donation.forms import RegisterForm
 
 
 class LandingPage(View):
@@ -33,7 +37,44 @@ class LoginPage(View):
 
 class RegisterPage(View):
     def get(self, request):
-        return render(request, 'register.html')
+        form = RegisterForm()
+        ctx = {
+            'form': form
+        }
+        return render(request, 'register.html', ctx)
+
+    def post(self, request):
+        form = RegisterForm(request.POST)
+
+        if form.is_valid():
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            password_2 = form.cleaned_data['password2']
+
+            if User.objects.filter(username=email).exists():
+                ctx = {
+                    'form': form,
+                    'msg_bad': "Adres e-mail jest już zaresjestrowany!"
+                }
+                return render(request, 'register.html', ctx)
+            if password != password_2:
+                ctx = {
+                    'form': form,
+                    'msg_bad': "Hasło musi być identyczne!"
+                }
+                return render(request, 'register.html', ctx)
+
+            User.objects.create_user(username=email, email=email, password=password, first_name=first_name,
+                                     last_name=last_name)
+            return HttpResponseRedirect('/login')
+        else:
+            ctx = {
+                'form': form,
+                'msg_bad': "Wypełnij formularz poprawnie!"
+            }
+            return render(request, 'register.html', ctx)
 
 
 class AddDonationPage(View):
