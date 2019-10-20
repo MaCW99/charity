@@ -48,7 +48,9 @@ class LoginPage(View):
             else:
                 return redirect("/register")
         else:
-            return render(request, "login.html")
+            form = LoginForm()
+            ctx = {"form": form}
+            return render(request, "login.html", ctx)
 
 
 class LogoutView(View):
