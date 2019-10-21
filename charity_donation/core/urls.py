@@ -23,6 +23,7 @@ from donation.views import (
     RegisterPage,
     AddDonationPage,
     LogoutView,
+    UserDetailsPage,
 )
 
 urlpatterns = [
@@ -32,4 +33,6 @@ urlpatterns = [
     url(r"^register/$", RegisterPage.as_view(), name="register"),
     url(r"^add_donation/$", AddDonationPage.as_view(), name="add_donation"),
     url(r"^logout/$", LogoutView.as_view(), name="logout"),
+    url(r"^user_site/$",UserDetailsPage.as_view(), name = "user_details"),
+
 ]
