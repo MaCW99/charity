@@ -98,6 +98,11 @@ class RegisterPage(View):
             return render(request, "register.html", ctx)
 
 
+class UserDetailsPage(View):
+    def get(self, request):
+        return render(request, 'user_site.html')
+
+
 class AddDonationPage(View):
     def get(self, request):
         return render(request, "form.html")
